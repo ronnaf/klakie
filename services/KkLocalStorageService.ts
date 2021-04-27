@@ -32,6 +32,6 @@ export const localStorageService: LocalStorageService = {
   clear: AsyncStorage.clear,
 };
 
-export const localStorageKey = {
+export const storageKeys = {
   API_KEY: 'API_KEY',
 };

@@ -4,11 +4,6 @@ import { LocalStorageService } from './services/KkLocalStorageService';
 type KkEnvironment = {
   /** The current API */
   api: API;
-  /** A proxy for handling navigation */
-  navigation: {
-    /** Navigates to the provided `route`, using the given `params` */
-    navigate: (route: string, params?: { [key: string]: any }) => void;
-  };
   /** Currently available services */
   services: {
     /** A service for interacting with async storage */

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, StyleSheet, TextInput } from 'react-native';
-import { KkSizedBox } from '../components/KkSizedBox';
-import { fonts } from '../components/KkStyles';
-import { Text, View } from '../components/Themed';
+import { KkSizedBox } from '../KkSizedBox';
+import { fonts } from '../KkStyles';
+import { Text, View } from '../Themed';
 import { KkLandingProps } from '../containers/KkLandingContainer';
 
 export const KkLandingScreen = (props: KkLandingProps) => {

@@ -1,4 +1,4 @@
-export type Workplace = {
+export type Workspace = {
   id: string;
   name: string;
 };
