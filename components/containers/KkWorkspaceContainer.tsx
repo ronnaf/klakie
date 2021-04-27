@@ -17,6 +17,8 @@ export type KkWorkspaceProps = {
   loggedInUser: ClockifyUser | null;
   timeEntries: TimeEntry[];
   dailyEntries: DailyEntry[];
+  isGettingEntries: boolean;
+  isGettingUser: boolean;
   userUpdatedCurrentWorkspaceId: React.Dispatch<React.SetStateAction<string>>;
   userClickedLogout: () => void;
   userClickedFootnote: () => void;
@@ -55,6 +57,8 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
   const [loggedInUser, setLoggedInUser] = useState<ClockifyUser | null>(null);
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
   const [dailyEntries, setDailyEntries] = useState<DailyEntry[]>([]);
+  const [isGettingEntries, setIsGettingEntries] = useState(false);
+  const [isGettingUser, setIsGettingUser] = useState(false);
 
   const { api, services } = Environment.current();
   const { navigate } = useNavigation();
@@ -83,10 +87,13 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
   useEffect(() => {
     (async () => {
       try {
+        setIsGettingUser(true);
         const user = await api.getCurrentUser();
+        setIsGettingUser(false);
         setLoggedInUser(user);
         setCurrentWorkspaceId(user.defaultWorkspace);
       } catch (e) {
+        setIsGettingUser(false);
         resetToLanding();
       }
     })();
@@ -98,11 +105,12 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
     if (currentWorkspaceId && loggedInUser?.id) {
       (async () => {
         try {
+          setIsGettingEntries(true);
           const timeEntries = await api.getTimeEntries(
             currentWorkspaceId,
             loggedInUser?.id
           );
-
+          setIsGettingEntries(false);
           setTimeEntries(timeEntries);
 
           // { [date]: {...timeEntry} }
@@ -160,6 +168,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
 
           setDailyEntries(entriesByDay);
         } catch (e) {
+          setIsGettingEntries(false);
           kkAlert(e.message);
         }
       })();
@@ -174,6 +183,8 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
       timeEntries={timeEntries}
       dailyEntries={dailyEntries}
       isGettingWorkspaces={isGettingWorkspaces}
+      isGettingEntries={isGettingEntries}
+      isGettingUser={isGettingUser}
       userUpdatedCurrentWorkspaceId={setCurrentWorkspaceId}
       userClickedLogout={resetToLanding}
       userClickedFootnote={() => {

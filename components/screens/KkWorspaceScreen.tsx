@@ -27,7 +27,9 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
                 />
               ))}
             </Picker>
-            {props.isGettingWorkspaces && (
+            {(props.isGettingWorkspaces ||
+              props.isGettingEntries ||
+              props.isGettingUser) && (
               <>
                 <KkSizedBox width={20} />
                 <ActivityIndicator />
