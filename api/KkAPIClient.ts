@@ -18,7 +18,7 @@ export const kkAPIClient = (options: { baseUrl: string }): API => {
     getWorkspaces: async () => {
       const { services } = Environment.current();
       const apiKey = await services.localStorage.getItem(storageKeys.API_KEY);
-      if (!apiKey) return;
+      if (!apiKey) throw new Error('No API key');
 
       const headers = getHeaders(apiKey);
       const url = getUrl('/workspaces');
@@ -35,7 +35,7 @@ export const kkAPIClient = (options: { baseUrl: string }): API => {
     getTimeEntries: async (workspaceId, userId) => {
       const { services } = Environment.current();
       const apiKey = await services.localStorage.getItem(storageKeys.API_KEY);
-      if (!apiKey) return;
+      if (!apiKey) throw new Error('No API key');
 
       const headers = getHeaders(apiKey);
       const url = getUrl(
@@ -54,7 +54,7 @@ export const kkAPIClient = (options: { baseUrl: string }): API => {
     getCurrentUser: async () => {
       const { services } = Environment.current();
       const apiKey = await services.localStorage.getItem(storageKeys.API_KEY);
-      if (!apiKey) return;
+      if (!apiKey) throw new Error('No API key');
 
       const headers = getHeaders(apiKey);
       const url = getUrl('/user');

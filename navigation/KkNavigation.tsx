@@ -30,7 +30,9 @@ export const createKkNavigation = (): {
 const RootStack = createStackNavigator();
 const KkRootNavigator = () => {
   return (
-    <RootStack.Navigator screenOptions={{ headerShown: false }}>
+    <RootStack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName={routes.LANDING}>
       <RootStack.Screen name={routes.LANDING} component={KkLandingContainer} />
       <RootStack.Screen
         name={routes.WORKSPACE}

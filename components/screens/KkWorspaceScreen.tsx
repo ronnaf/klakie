@@ -19,7 +19,7 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
               onValueChange={(value: string) =>
                 props.userUpdatedCurrentWorkspaceId(value)
               }>
-              {props.workspaces.map((workspace) => (
+              {props.workspaces?.map((workspace) => (
                 <Picker.Item
                   key={workspace.id}
                   label={workspace.name}

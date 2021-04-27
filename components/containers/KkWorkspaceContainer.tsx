@@ -59,6 +59,11 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
   const { api, services } = Environment.current();
   const { navigate } = useNavigation();
 
+  const resetToLanding = async () => {
+    await services.localStorage.clear();
+    navigate(routes.LANDING);
+  };
+
   // populate workspaces on mount
   useEffect(() => {
     (async () => {
@@ -69,7 +74,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
         setWorkspaces(result);
       } catch (e) {
         setIsGettingWorkspaces(false);
-        kkAlert(e.message);
+        resetToLanding();
       }
     })();
   }, []);
@@ -82,7 +87,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
         setLoggedInUser(user);
         setCurrentWorkspaceId(user.defaultWorkspace);
       } catch (e) {
-        kkAlert(e.message);
+        resetToLanding();
       }
     })();
   }, []);
@@ -170,10 +175,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
       dailyEntries={dailyEntries}
       isGettingWorkspaces={isGettingWorkspaces}
       userUpdatedCurrentWorkspaceId={setCurrentWorkspaceId}
-      userClickedLogout={async () => {
-        await services.localStorage.clear();
-        navigate(routes.LANDING);
-      }}
+      userClickedLogout={resetToLanding}
       userClickedFootnote={() => {
         Linking.openURL('https://github.com/ronnaf');
       }}
