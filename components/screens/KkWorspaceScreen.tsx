@@ -50,12 +50,21 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
           {props.dailyEntries.map((dailyEntry) => {
             return (
               <View key={dailyEntry.dateStarted} style={styles.dailyEntry}>
-                <Text
-                  style={fonts.subtitle2({
-                    color: 'rgba(255,255,255,0.5)',
-                  })}>
-                  {dailyEntry.dateStarted}
-                </Text>
+                <View style={styles.header}>
+                  <Text
+                    style={fonts.subtitle2({
+                      color: 'rgba(255,255,255,0.5)',
+                    })}>
+                    {dailyEntry.dateStarted}
+                  </Text>
+                  <Text
+                    style={fonts.subtitle2({
+                      bold: true,
+                      color: 'white',
+                    })}>
+                    {dailyEntry.totalDayHours.toFixed(2)}
+                  </Text>
+                </View>
                 <View style={styles.timeEntries}>
                   {dailyEntry.timeEntries.map((entry) => (
                     <View key={entry.id} style={styles.timeEntry}>

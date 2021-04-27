@@ -22,6 +22,7 @@ export type KkWorkspaceProps = {
 
 type DailyEntry = {
   dateStarted: string;
+  totalDayHours: number;
   timeEntries: TimeEntry[];
 };
 
@@ -88,13 +89,26 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
             timeEntriesByDateLib[dateStarted].push(entry);
           });
 
-          // [{ dateStarted: 'dddd - MMM, DD', timeEntry }]
+          // [{ dateStarted: 'dddd - MMM, DD', timeEntry, totalDayHours }]
           const entriesByDay: DailyEntry[] = Object.entries(
             timeEntriesByDateLib
-          ).map(([dateStarted, timeEntries]) => ({
-            dateStarted,
-            timeEntries,
-          }));
+          ).map(([dateStarted, timeEntries]) => {
+            const totalDayHours = timeEntries.reduce((acc, cur) => {
+              if (cur.timeInterval.end) {
+                const start = dayjs(cur.timeInterval.start);
+                const end = dayjs(cur.timeInterval.end);
+                const duration = end.diff(start, 'hour', true);
+                return acc + duration;
+              }
+              return acc;
+            }, 0);
+
+            return {
+              dateStarted,
+              timeEntries,
+              totalDayHours,
+            };
+          });
 
           setDailyEntries(entriesByDay);
         } catch (e) {
