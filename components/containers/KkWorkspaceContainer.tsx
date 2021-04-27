@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Platform } from 'react-native';
-import { Environment } from '../../KkEnvironment';
-import { KkWorspaceScreen } from '../screens/KkWorspaceScreen';
-import { Workspace } from '../../api/models/Workspace';
 import { useNavigation } from '@react-navigation/core';
-import { routes } from '../../navigation/KkLinking';
-import { storageKeys } from '../../services/KkLocalStorageService';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { ClockifyUser } from '../../api/models/ClockifyUser';
 import { TimeEntry } from '../../api/models/TimeEntry';
+import { Workspace } from '../../api/models/Workspace';
+import { Environment } from '../../KkEnvironment';
+import { routes } from '../../navigation/KkLinking';
 import { kkAlert } from '../../utils/Alert';
-import dayjs from 'dayjs';
+import { KkWorspaceScreen } from '../screens/KkWorspaceScreen';
 
 export type KkWorkspaceProps = {
   workspaces: Workspace[];
@@ -19,6 +17,7 @@ export type KkWorkspaceProps = {
   timeEntries: TimeEntry[];
   dailyEntries: DailyEntry[];
   userUpdatedCurrentWorkspaceId: React.Dispatch<React.SetStateAction<string>>;
+  userClickedLogout: () => void;
 };
 
 type DailyEntry = {
@@ -114,6 +113,10 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
       dailyEntries={dailyEntries}
       isGettingWorkspaces={isGettingWorkspaces}
       userUpdatedCurrentWorkspaceId={setCurrentWorkspaceId}
+      userClickedLogout={async () => {
+        await services.localStorage.clear();
+        navigate(routes.LANDING);
+      }}
     />
   );
 };
