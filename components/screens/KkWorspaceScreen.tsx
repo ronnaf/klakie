@@ -1,10 +1,11 @@
+import { Picker } from '@react-native-picker/picker';
+import dayjs from 'dayjs';
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { fonts } from '../KkStyles';
-import { Text, View } from '../Themed';
 import { KkWorkspaceProps } from '../containers/KkWorkspaceContainer';
 import { KkSizedBox } from '../KkSizedBox';
+import { fonts } from '../KkStyles';
+import { Text, View } from '../Themed';
 
 export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
   return (
@@ -37,21 +38,32 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
         </View>
       </View>
 
-      <KkSizedBox height={36} />
+      <KkSizedBox height={30} />
       <View>
-        {props.timeEntries.map((entry) => (
-          <View key={entry.id} style={styles.timeEntry}>
-            <View style={styles.timeEntryLeft}>
-              <Text style={fonts.body2({ bold: true })}>
-                {entry.description}
+        {props.dailyEntries.map((dailyEntry) => {
+          return (
+            <View key={dailyEntry.dateStarted} style={styles.dailyEntry}>
+              <Text
+                style={fonts.subtitle2({
+                  color: 'rgba(255,255,255,0.5)',
+                })}>
+                {dailyEntry.dateStarted}
               </Text>
+              <View style={styles.timeEntries}>
+                {dailyEntry.timeEntries.map((entry) => (
+                  <View key={entry.id} style={styles.timeEntry}>
+                    <View style={styles.timeEntryLeft}>
+                      <Text style={fonts.body2({ bold: true })}>
+                        {entry.description}
+                      </Text>
+                    </View>
+                    <View style={styles.timeEntryRight}></View>
+                  </View>
+                ))}
+              </View>
             </View>
-            <View style={styles.timeEntryRight}>
-              <Text>{entry.timeInterval.start}</Text>
-              <Text>{entry.timeInterval.end}</Text>
-            </View>
-          </View>
-        ))}
+          );
+        })}
       </View>
     </View>
   );
@@ -59,7 +71,7 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: 24,
   },
   header: {
     display: 'flex',
@@ -77,6 +89,9 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: 'black',
     color: 'white',
+  },
+  timeEntries: {
+    marginTop: 10,
   },
   timeEntry: {
     display: 'flex',
@@ -96,5 +111,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  dailyEntry: {
+    marginBottom: 16,
   },
 });

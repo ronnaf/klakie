@@ -9,6 +9,7 @@ import { storageKeys } from '../../services/KkLocalStorageService';
 import { ClockifyUser } from '../../api/models/ClockifyUser';
 import { TimeEntry } from '../../api/models/TimeEntry';
 import { kkAlert } from '../../utils/Alert';
+import dayjs from 'dayjs';
 
 export type KkWorkspaceProps = {
   workspaces: Workspace[];
@@ -16,7 +17,13 @@ export type KkWorkspaceProps = {
   isGettingWorkspaces: boolean;
   loggedInUser: ClockifyUser | null;
   timeEntries: TimeEntry[];
+  dailyEntries: DailyEntry[];
   userUpdatedCurrentWorkspaceId: React.Dispatch<React.SetStateAction<string>>;
+};
+
+type DailyEntry = {
+  dateStarted: string;
+  timeEntries: TimeEntry[];
 };
 
 export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
@@ -25,6 +32,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
   const [isGettingWorkspaces, setIsGettingWorkspaces] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<ClockifyUser | null>(null);
   const [timeEntries, setTimeEntries] = useState<TimeEntry[]>([]);
+  const [dailyEntries, setDailyEntries] = useState<DailyEntry[]>([]);
 
   const { api, services } = Environment.current();
   const { navigate } = useNavigation();
@@ -67,7 +75,29 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
             currentWorkspaceId,
             loggedInUser?.id
           );
+
           setTimeEntries(timeEntries);
+
+          // { [date]: {...timeEntry} }
+          const timeEntriesByDateLib: { [key: string]: TimeEntry[] } = {};
+          timeEntries.forEach((entry) => {
+            const format = 'dddd // MMMM, DD';
+            const dateStarted = dayjs(entry.timeInterval.start).format(format);
+            if (!timeEntriesByDateLib[dateStarted]) {
+              timeEntriesByDateLib[dateStarted] = [];
+            }
+            timeEntriesByDateLib[dateStarted].push(entry);
+          });
+
+          // [{ dateStarted: 'dddd - MMM, DD', timeEntry }]
+          const entriesByDay: DailyEntry[] = Object.entries(
+            timeEntriesByDateLib
+          ).map(([dateStarted, timeEntries]) => ({
+            dateStarted,
+            timeEntries,
+          }));
+
+          setDailyEntries(entriesByDay);
         } catch (e) {
           kkAlert(e.message);
         }
@@ -81,6 +111,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
       currentWorkspaceId={currentWorkspaceId}
       loggedInUser={loggedInUser}
       timeEntries={timeEntries}
+      dailyEntries={dailyEntries}
       isGettingWorkspaces={isGettingWorkspaces}
       userUpdatedCurrentWorkspaceId={setCurrentWorkspaceId}
     />

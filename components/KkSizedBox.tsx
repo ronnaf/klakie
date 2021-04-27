@@ -1,11 +1,7 @@
 import React from 'react';
+import { ViewStyle } from 'react-native';
 import { View } from './Themed';
 
-type Props = {
-  height?: number;
-  width?: number;
-};
-
-export const KkSizedBox = (props: Props) => {
-  return <View style={{ height: props.height, width: props.width }} />;
+export const KkSizedBox = (props: ViewStyle) => {
+  return <View style={props} />;
 };

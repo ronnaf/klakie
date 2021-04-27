@@ -3,6 +3,7 @@ import { StyleSheet, TextStyle, ViewStyle } from 'react-native';
 type FontOptions = {
   bold?: boolean;
   size?: number;
+  color?: string;
 };
 
 type Fonts = {
@@ -61,6 +62,7 @@ export const fonts: Fonts = {
     fontSize: 14,
     fontWeight: options?.bold ? 'bold' : '500',
     letterSpacing: 0.1,
+    color: options?.color,
   }),
   body1: (options) => ({
     fontSize: 16,
