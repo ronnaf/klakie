@@ -116,7 +116,7 @@ export const KkWorkspaceContainer = (props: KkWorkspaceProps) => {
           // { [date]: {...timeEntry} }
           const timeEntriesByDateLib: { [key: string]: TimeEntry[] } = {};
           timeEntries.forEach((entry) => {
-            const format = 'dddd // MMMM, DD';
+            const format = 'dddd // MMMM DD, YYYY';
             const dateStarted = dayjs(entry.timeInterval.start).format(format);
             // initialize timeEntriesByDateLib[dateStarted]
             if (!timeEntriesByDateLib[dateStarted]) {
