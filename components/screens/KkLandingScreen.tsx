@@ -12,7 +12,7 @@ export const KkLandingScreen = (props: KkLandingProps) => {
         <Text style={fonts.h6({ bold: true })}>Welcome to Klakie!</Text>
       </View>
       <View style={styles.container}>
-        <Text style={fonts.body1()}>Enter your API Key</Text>
+        <Text style={fonts.body1()}>Enter your Clockify API Key</Text>
         <KkSizedBox height={24} />
         <TextInput
           style={styles.input}
