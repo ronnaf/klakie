@@ -1,7 +1,6 @@
 import { Picker } from '@react-native-picker/picker';
-import dayjs from 'dayjs';
 import React from 'react';
-import { ActivityIndicator, Pressable, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KkWorkspaceProps } from '../containers/KkWorkspaceContainer';
 import { KkSizedBox } from '../KkSizedBox';
@@ -66,20 +65,27 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
                   </Text>
                 </View>
                 <View style={styles.timeEntries}>
-                  {dailyEntry.timeEntries.map((entry) => (
-                    <View key={entry.id} style={styles.timeEntry}>
+                  {dailyEntry.groupedTimeEntries.map((groupedEntry) => (
+                    <View key={groupedEntry.id} style={styles.timeEntry}>
                       <View style={styles.timeEntryLeft}>
                         <Text style={fonts.body2({ bold: true })}>
-                          {entry.description}
+                          {groupedEntry.description}
                         </Text>
                       </View>
-                      <View style={styles.timeEntryRight}></View>
+                      <View style={styles.timeEntryRight}>
+                        <Text>{groupedEntry.totalDescHours.toFixed(2)}</Text>
+                      </View>
                     </View>
                   ))}
                 </View>
               </View>
             );
           })}
+        </View>
+        <View>
+          <TouchableOpacity onPress={props.userClickedFootnote}>
+            <Text>ronnaf (c) 2021 | Github</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
