@@ -16,9 +16,7 @@ export const createKkNavigation = (): {
 } => {
   return {
     Navigator: (props) => (
-      <NavigationContainer
-        theme={props.colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-        linking={kkLinking}>
+      <NavigationContainer linking={kkLinking}>
         <KkRootNavigator />
       </NavigationContainer>
     ),

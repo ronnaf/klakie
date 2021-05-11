@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
 import { ClockifyUser } from '../../api/models/ClockifyUser';
-import { TimeEntry } from '../../api/models/TimeEntry';
+import { DailyEntry, GroupEntry, TimeEntry } from '../../api/models/TimeEntry';
 import { Workspace } from '../../api/models/Workspace';
 import { Environment } from '../../KkEnvironment';
 import { routes } from '../../navigation/KkLinking';
@@ -22,20 +22,6 @@ export type KkWorkspaceProps = {
   userUpdatedCurrentWorkspaceId: React.Dispatch<React.SetStateAction<string>>;
   userClickedLogout: () => void;
   userClickedFootnote: () => void;
-};
-
-type DailyEntry = {
-  dateStarted: string;
-  totalDayHours: number;
-  timeEntries: TimeEntry[];
-  groupedTimeEntries: GroupEntry[];
-};
-
-type GroupEntry = {
-  id: string;
-  description: string;
-  totalDescHours: number;
-  timeEntries: TimeEntry[];
 };
 
 const getTotalHours = (arr: TimeEntry[]) => {

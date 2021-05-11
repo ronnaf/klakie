@@ -14,3 +14,17 @@ export type TimeEntry = {
   workspaceId: string;
   isLocked: boolean;
 };
+
+export type DailyEntry = {
+  dateStarted: string;
+  totalDayHours: number;
+  timeEntries: TimeEntry[];
+  groupedTimeEntries: GroupEntry[];
+};
+
+export type GroupEntry = {
+  id: string;
+  description: string;
+  totalDescHours: number;
+  timeEntries: TimeEntry[];
+};

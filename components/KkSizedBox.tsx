@@ -1,6 +1,5 @@
 import React from 'react';
-import { ViewStyle } from 'react-native';
-import { View } from './Themed';
+import { ViewStyle, View } from 'react-native';
 
 export const KkSizedBox = (props: ViewStyle) => {
   return <View style={props} />;

@@ -51,7 +51,9 @@ export const fonts: Fonts = {
   h6: (options) => ({
     fontSize: 20,
     fontWeight: options?.bold ? 'bold' : '500',
-    letterSpacing: 0.15,
+    letterSpacing: 1.5,
+    color: colors.turquoiseBlue,
+    textTransform: 'lowercase',
   }),
   subtitle1: (options) => ({
     fontSize: 16,
@@ -62,22 +64,28 @@ export const fonts: Fonts = {
     fontSize: 14,
     fontWeight: options?.bold ? 'bold' : '500',
     letterSpacing: 0.1,
-    color: options?.color,
+    color: options?.color || colors.blumine,
   }),
   body1: (options) => ({
     fontSize: 16,
     fontWeight: options?.bold ? 'bold' : '400',
     letterSpacing: 0.5,
+    color: colors.oysterBay,
+    textTransform: 'lowercase',
   }),
   body2: (options) => ({
     fontSize: 14,
     fontWeight: options?.bold ? 'bold' : '400',
     letterSpacing: 0.25,
+    color: colors.turquoiseBlue,
+    textTransform: 'lowercase',
   }),
   button: (options) => ({
     fontSize: 14,
     fontWeight: options?.bold ? 'bold' : '400',
     letterSpacing: 1.25,
+    color: colors.blumine,
+    textTransform: 'lowercase',
   }),
   caption: (options) => ({
     fontSize: 12,
@@ -89,4 +97,12 @@ export const fonts: Fonts = {
     fontWeight: options?.bold ? 'bold' : '400',
     letterSpacing: 1.5,
   }),
+};
+
+export const colors = {
+  blackRock: '#01012A',
+  blumine: '#005679',
+  turquoiseBlue: '#05D8E8',
+  oysterBay: '#D1F9FF',
+  radicalRed: '#FF296D',
 };

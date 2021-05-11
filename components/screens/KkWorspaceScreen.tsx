@@ -1,11 +1,11 @@
 import { Picker } from '@react-native-picker/picker';
 import React from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KkWorkspaceProps } from '../containers/KkWorkspaceContainer';
 import { KkSizedBox } from '../KkSizedBox';
-import { fonts } from '../KkStyles';
-import { Text, View } from '../Themed';
+import { colors, fonts } from '../KkStyles';
+import { KkTimeEntryGroup } from '../KkTimeEntryGroup';
 
 export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
   return (
@@ -37,50 +37,24 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
             )}
           </View>
           <View style={styles.rightHeader}>
-            <Text>{props.loggedInUser?.name}'s Clockify</Text>
+            <Text style={fonts.body2()}>
+              {props.loggedInUser?.name}'s Clockify
+            </Text>
             <TouchableOpacity
               style={styles.logoutButton}
               onPress={props.userClickedLogout}>
-              <Text>Log out</Text>
+              <Text style={fonts.button()}>Log out</Text>
             </TouchableOpacity>
           </View>
         </View>
-
         <KkSizedBox height={30} />
         <View>
           {props.dailyEntries.map((dailyEntry) => {
             return (
-              <View key={dailyEntry.dateStarted} style={styles.dailyEntry}>
-                <View style={styles.header}>
-                  <Text
-                    style={fonts.subtitle2({
-                      color: 'rgba(255,255,255,0.5)',
-                    })}>
-                    {dailyEntry.dateStarted}
-                  </Text>
-                  <Text
-                    style={fonts.subtitle2({
-                      bold: true,
-                      color: 'white',
-                    })}>
-                    {dailyEntry.totalDayHours.toFixed(2)}
-                  </Text>
-                </View>
-                <View style={styles.timeEntries}>
-                  {dailyEntry.groupedTimeEntries.map((groupedEntry) => (
-                    <View key={groupedEntry.id} style={styles.timeEntry}>
-                      <View style={styles.timeEntryLeft}>
-                        <Text style={fonts.body2({ bold: true })}>
-                          {groupedEntry.description}
-                        </Text>
-                      </View>
-                      <View style={styles.timeEntryRight}>
-                        <Text>{groupedEntry.totalDescHours.toFixed(2)}</Text>
-                      </View>
-                    </View>
-                  ))}
-                </View>
-              </View>
+              <KkTimeEntryGroup
+                key={dailyEntry.dateStarted}
+                dailyEntry={dailyEntry}
+              />
             );
           })}
         </View>
@@ -98,6 +72,8 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: colors.blackRock,
+    minHeight: '100vh',
   },
   innerContainer: {
     width: 768,
@@ -120,39 +96,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   picker: {
-    ...fonts.body1(),
+    ...fonts.body1({ bold: true }),
     padding: 8,
-    backgroundColor: 'black',
-    color: 'white',
-  },
-  timeEntries: {
-    marginTop: 10,
-  },
-  timeEntry: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    border: '1px solid rgba(255,255,255,0.10)',
-    padding: 10,
-    marginBottom: 8,
-  },
-  timeEntryLeft: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  timeEntryRight: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  dailyEntry: {
-    marginBottom: 16,
+    backgroundColor: colors.blackRock,
+    borderColor: colors.radicalRed,
+    color: colors.turquoiseBlue,
   },
   logoutButton: {
     marginLeft: 16,
     padding: 8,
-    backgroundColor: 'rgba(255,255,255,0.10)',
+    backgroundColor: colors.turquoiseBlue,
   },
 });

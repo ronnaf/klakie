@@ -39,7 +39,7 @@ export const kkAPIClient = (options: { baseUrl: string }): API => {
 
       const headers = getHeaders(apiKey);
       const url = getUrl(
-        `/workspaces/${workspaceId}/user/${userId}/time-entries`
+        `/workspaces/${workspaceId}/user/${userId}/time-entries?page-size=100`
       );
 
       const response = await fetch(url, { headers });
