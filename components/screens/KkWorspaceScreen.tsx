@@ -60,7 +60,7 @@ export const KkWorspaceScreen = (props: KkWorkspaceProps) => {
         </View>
         <View>
           <TouchableOpacity onPress={props.userClickedFootnote}>
-            <Text>ronnaf (c) 2021 | Github</Text>
+            <Text style={fonts.caption()}>ronnaf (c) 2021 | Github</Text>
           </TouchableOpacity>
         </View>
       </View>

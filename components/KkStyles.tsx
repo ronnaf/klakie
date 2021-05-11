@@ -65,6 +65,7 @@ export const fonts: Fonts = {
     fontWeight: options?.bold ? 'bold' : '500',
     letterSpacing: 0.1,
     color: options?.color || colors.blumine,
+    textTransform: 'lowercase',
   }),
   body1: (options) => ({
     fontSize: 16,
@@ -91,6 +92,8 @@ export const fonts: Fonts = {
     fontSize: 12,
     fontWeight: options?.bold ? 'bold' : '400',
     letterSpacing: 0.4,
+    color: colors.blumine,
+    textTransform: 'lowercase',
   }),
   overline: (options) => ({
     fontSize: 10,

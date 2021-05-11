@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { KkLandingProps } from '../containers/KkLandingContainer';
 import { KkSizedBox } from '../KkSizedBox';
 import { colors, fonts } from '../KkStyles';
@@ -24,6 +25,10 @@ export const KkLandingScreen = (props: KkLandingProps) => {
             }))
           }
         />
+        <KkSizedBox height={24} />
+        <TouchableOpacity onPress={props.userPressedGetAPIKey}>
+          <Text style={fonts.subtitle2()}>Get my API key</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

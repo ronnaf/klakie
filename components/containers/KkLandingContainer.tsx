@@ -4,11 +4,13 @@ import { Environment } from '../../KkEnvironment';
 import { routes } from '../../navigation/KkLinking';
 import { KkLandingScreen } from '../screens/KkLandingScreen';
 import { storageKeys } from '../../services/KkLocalStorageService';
+import { Linking } from 'react-native';
 
 export type KkLandingProps = {
   formState: FormState;
   userUpdatedForm: React.Dispatch<React.SetStateAction<FormState>>;
   userSubmittedForm: () => void;
+  userPressedGetAPIKey: () => void;
 };
 
 type FormState = {
@@ -41,6 +43,9 @@ export const KkLandingContainer = (props: KkLandingProps) => {
           formState.apiKey
         );
         navigate(routes.WORKSPACE);
+      }}
+      userPressedGetAPIKey={() => {
+        Linking.openURL('https://clockify.me/user/settings');
       }}
     />
   );
