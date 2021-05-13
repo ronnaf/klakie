@@ -1,6 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GroupEntry } from '../api/models/TimeEntry';
+import { copyToClipboard } from '../utils/TimeEntryHelper';
+import { KkSizedBox } from './KkSizedBox';
 import { fonts } from './KkStyles';
 
 type Props = {
@@ -19,6 +22,13 @@ export const KkTimeEntryGroupItem = (props: Props) => {
         <Text style={fonts.body2()}>
           {props.groupedEntry.totalDescHours.toFixed(2)}
         </Text>
+        <KkSizedBox width={8} />
+        <TouchableOpacity
+          onPress={() =>
+            copyToClipboard(props.groupedEntry.totalDescHours.toFixed(2))
+          }>
+          <Text style={fonts.button()}>copy</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
