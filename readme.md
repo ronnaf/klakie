@@ -1,3 +1,5 @@
+This project has been moved to https://github.com/ronnaf/klakie-next.
+
 # klakie docu
 
 ![klakie_on_cyber](https://user-images.githubusercontent.com/32459751/118411007-0befa780-b6c5-11eb-8064-c30b7c7d1743.png)
